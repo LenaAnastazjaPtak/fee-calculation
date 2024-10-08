@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace PragmaGoTech\Interview;
 
+use PragmaGoTech\Interview\Fee\JsonFeeStructureProvider;
 use PragmaGoTech\Interview\Model\LoanProposal;
-use PragmaGoTech\Interview\Calculator\FeeCalculator;
+use PragmaGoTech\Interview\Fee\FeeCalculator;
 use PragmaGoTech\Interview\Input\InputHandler;
 
 class Application
@@ -21,10 +22,13 @@ class Application
     {
         $loanAmount = $this->inputHandler->getLoanAmount();
         $term = $this->inputHandler->getLoanTerm();
+        $filePath = __DIR__ . '/../data/fee_structure.json';
 
-        $calculator = new FeeCalculator();
+        $feeProvider = new JsonFeeStructureProvider($filePath);
+
+        $calculator = new FeeCalculator($feeProvider);
         $loanProposal = new LoanProposal($term, $loanAmount);
 
-        echo "The loan fee is:" . $calculator->calculate($loanProposal) . " PLN\n";
+        echo "The loan fee is: " . $calculator->calculate($loanProposal) . " PLN\n";
     }
 }
