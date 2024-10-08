@@ -99,3 +99,11 @@ The fee structure doesn't follow particular algorithm and it is possible that sa
 19000 PLN: 760 PLN
 20000 PLN: 800 PLN
 ```
+
+## Run
+
+To test app run in project folder:
+
+```bash
+php .\public\index.php
+```
