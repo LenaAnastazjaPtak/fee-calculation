@@ -22,13 +22,13 @@ class FeeCalculator implements \PragmaGoTech\Interview\FeeCalculator
         $finalFee = -1;
 
         foreach ($feeStructure[$application->term()] as $amount => $fee) {
-            $upper = $amount;
-            if ($amount == $application->amount()) {
+            $upper = (float) $amount;
+            if ($upper == $application->amount()) {
                 $finalFee = $fee;
-            } elseif ($application->amount() > $lower and $application->amount() < $upper) {
+            } elseif ($application->amount() > $lower && $application->amount() < $upper) {
                 $finalFee = $this->interpolate($application->amount(), $lower, $upper, $feeStructure[$term][$lower], $feeStructure[$term][$upper]);
             }
-            $lower = $amount;
+            $lower = $upper;
         }
 
         return $this->roundUpToNearestFive($finalFee, $application->amount());
@@ -43,7 +43,7 @@ class FeeCalculator implements \PragmaGoTech\Interview\FeeCalculator
     {
         $total = $loanAmount + $fee;
 
-        if ($total % 5.0 === 0) {
+        if (($total / 5.0) == 0.0) {
             return $fee;
         }
 
