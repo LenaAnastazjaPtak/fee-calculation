@@ -1,4 +1,4 @@
-PragmaGO.TECH Interview Test - Fee Calculation
+Fee Calculation
 =====
 
 ## Background
